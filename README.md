@@ -3,6 +3,11 @@
 		---> Board Game Database Full-Stack Web Application. This web application displays lists of board games and their reviews. While anyone can view the board game lists and reviews, they are required to log in to add/ edit the board games and their reviews. The 'users' have the authority to add board games to the list and add reviews, and the 'managers' have the authority to edit/ delete the reviews on top of the authorities of users. 
 
 
+![Image](https://github.com/user-attachments/assets/ed06d7e5-1aad-463e-baf4-154e071850c2)
+![Image](https://github.com/user-attachments/assets/8b35582a-a42b-4157-b22c-f24d57336466)
+![Image](https://github.com/user-attachments/assets/6dbc420c-5be6-47c0-879b-b7269d7e31ea)
+
+
 ## Application Deploy through CICD Pipeline 
 
 ### Take Instance base image - ubuntu 
