@@ -3,14 +3,14 @@
 		---> Board Game Database Full-Stack Web Application. This web application displays lists of board games and their reviews. While anyone can view the board game lists and reviews, they are required to log in to add/ edit the board games and their reviews. The 'users' have the authority to add board games to the list and add reviews, and the 'managers' have the authority to edit/ delete the reviews on top of the authorities of users. 
 
 
-# # Application Deploy through CICD Pipeline 
+## Application Deploy through CICD Pipeline 
 
-# Take Instance base image - ubuntu 
-# Size - t2.micro
-# Volume size - 25GB
+### Take Instance base image - ubuntu 
+### Size - t2.micro
+### Volume size - 25GB
 
 
-#  Project Workflow
+##  Project Workflow
 				project-root/
 					src/
 							main/
@@ -32,11 +32,11 @@
 
 
 3. Maven dependencies and creating a project file along with dependencies
-# <---------------------------------------------------------------------------->
+### <---------------------------------------------------------------------------->
 mvn archetype:generate -DgroupId=com.mycompany.app -DartifactId=my-app -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.5 -DinteractiveMode=false
 
 
-# <----------------------------------------------------------------------------->
+### <----------------------------------------------------------------------------->
 4. cd /home/ubuntu/my-app/project
 
 5. git clone https://github.com/jaiswaladi246/Multi-Tier-BankApp-CI.git
@@ -53,7 +53,7 @@ mvn archetype:generate -DgroupId=com.mycompany.app -DartifactId=my-app -Darchety
 
 11. mvn test  < To check target file is created or not >
 
-# <------ Clean command is executed only if the pom.xml file is present in the current directiory and  clean command clear the test/delete the test file and the again run the test command and build test ------->
+### <------ Clean command is executed only if the pom.xml file is present in the current directiory and  clean command clear the test/delete the test file and the again run the test command and build test ------->
 
 12. mvn clean test  
 
@@ -67,11 +67,11 @@ mvn archetype:generate -DgroupId=com.mycompany.app -DartifactId=my-app -Darchety
 
 
 
-# Project GitHub URL :
+## Project GitHub URL :
 
 	https://github.com/jaiswaladi2468/BoardgameListingWebApp.git
 
-# Maven Working Process 
+## Maven Working Process 
 
 1.			mvn validate
 2.			mvn compile
