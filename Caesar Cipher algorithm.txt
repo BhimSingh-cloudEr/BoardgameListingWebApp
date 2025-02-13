@@ -1,0 +1,236 @@
+Create a program that can encrypt and decrypt text using the Caesar Cipher algorithm. Allow users to input a message and a shift value to perform encryption and decryption.
+ChatGPT said:
+ChatGPT
+Sure! Below is a simple Python program that implements the Caesar Cipher for both encryption and decryption. Users can input their message and the shift value to perform the operations.
+
+python
+Copy code
+def caesar_cipher(text, shift):
+    result = ""
+    
+    # Iterate through each character in the input text
+    for char in text:
+        # Encrypt uppercase characters
+        if char.isupper():
+            result += chr((ord(char) + shift - 65) % 26 + 65)
+        # Encrypt lowercase characters
+        elif char.islower():
+            result += chr((ord(char) + shift - 97) % 26 + 97)
+        else:
+            result += char  # Non-alphabetical characters are added unchanged
+
+    return result
+
+def main():
+    while True:
+        print("Caesar Cipher Program")
+        print("1. Encrypt")
+        print("2. Decrypt")
+        print("3. Exit")
+        choice = input("Choose an option (1-3): ")
+
+        if choice == '3':
+            print("Exiting the program.")
+            break
+
+        message = input("Enter your message: ")
+        shift = int(input("Enter shift value (positive for encryption, negative for decryption): "))
+
+        if choice == '1':
+            encrypted_message = caesar_cipher(message, shift)
+            print("Encrypted Message:", encrypted_message)
+        elif choice == '2':
+            decrypted_message = caesar_cipher(message, -shift)
+            print("Decrypted Message:", decrypted_message)
+        else:
+            print("Invalid choice. Please choose again.")
+
+if __name__ == "__main__":
+    main()
+How to Use the Program:
+Run the program.
+Choose whether to encrypt or decrypt a message.
+Input your message.
+Enter a shift value:
+Use a positive value for encryption.
+Use a negative value for decryption.
+The program will display the resulting message.
+You can continue encrypting or decrypting messages, or exit the program.
+Note:
+The Caesar Cipher is a basic encryption technique and is not secure for modern applications, but it's a great way to understand the fundamentals of encryption.
+
+
+
+You said:
+Develop a simple image encryption tool using pixel manipulation. Support operations like swapping pixel values or applying a basic mathematical operation to each pixel.
+ChatGPT said:
+ChatGPT
+Certainly! Below is a simple Python program that demonstrates image encryption using pixel manipulation. This program allows you to swap pixel values or apply a basic mathematical operation (like addition or subtraction) to each pixel.
+
+Requirements
+Make sure you have the Pillow library installed. You can install it using pip:
+
+bash
+Copy code
+pip install Pillow
+Code
+python
+Copy code
+from PIL import Image
+import random
+
+def swap_pixels(image):
+    pixels = list(image.getdata())
+    width, height = image.size
+    # Randomly swap pixels
+    for _ in range(len(pixels) // 2):
+        idx1, idx2 = random.sample(range(len(pixels)), 2)
+        pixels[idx1], pixels[idx2] = pixels[idx2], pixels[idx1]
+    
+    # Create a new image with swapped pixels
+    new_image = Image.new(image.mode, image.size)
+    new_image.putdata(pixels)
+    return new_image
+
+def manipulate_pixels(image, operation, value):
+    pixels = list(image.getdata())
+    new_pixels = []
+
+    for pixel in pixels:
+        # Apply the chosen operation to each pixel
+        if operation == 'add':
+            new_pixel = tuple(min(255, max(0, p + value)) for p in pixel)
+        elif operation == 'subtract':
+            new_pixel = tuple(min(255, max(0, p - value)) for p in pixel)
+        else:
+            raise ValueError("Invalid operation. Use 'add' or 'subtract'.")
+
+        new_pixels.append(new_pixel)
+
+    # Create a new image with manipulated pixels
+    new_image = Image.new(image.mode, image.size)
+    new_image.putdata(new_pixels)
+    return new_image
+
+def main():
+    print("Image Encryption Tool")
+    image_path = input("Enter the path of the image to encrypt: ")
+    
+    try:
+        image = Image.open(image_path)
+    except Exception as e:
+        print(f"Error opening image: {e}")
+        return
+
+    while True:
+        print("\nChoose an operation:")
+        print("1. Swap pixels")
+        print("2. Add value to each pixel")
+        print("3. Subtract value from each pixel")
+        print("4. Exit")
+        choice = input("Enter your choice (1-4): ")
+
+        if choice == '1':
+            encrypted_image = swap_pixels(image)
+            encrypted_image.show()
+            encrypted_image.save("encrypted_swapped_image.png")
+            print("Swapped pixels and saved as 'encrypted_swapped_image.png'.")
+
+        elif choice == '2':
+            value = int(input("Enter the value to add (0-255): "))
+            encrypted_image = manipulate_pixels(image, 'add', value)
+            encrypted_image.show()
+            encrypted_image.save("encrypted_added_image.png")
+            print("Added value and saved as 'encrypted_added_image.png'.")
+
+        elif choice == '3':
+            value = int(input("Enter the value to subtract (0-255): "))
+            encrypted_image = manipulate_pixels(image, 'subtract', value)
+            encrypted_image.show()
+            encrypted_image.save("encrypted_subtracted_image.png")
+            print("Subtracted value and saved as 'encrypted_subtracted_image.png'.")
+
+        elif choice == '4':
+            print("Exiting the program.")
+            break
+
+        else:
+            print("Invalid choice. Please choose again.")
+
+if __name__ == "__main__":
+    main()
+How to Use the Program:
+Run the program.
+Input the path to the image you want to encrypt.
+Choose an operation:
+Swap pixels: Randomly swaps pixel values.
+Add value to each pixel: Adds a specified value to each pixel's RGB components.
+Subtract value from each pixel: Subtracts a specified value from each pixel's RGB components.
+The resulting image will be displayed and saved to the current directory.
+You can repeat the operations or exit the program.
+Note:
+The pixel manipulation methods are basic and meant for educational purposes. More advanced techniques can be used for stronger encryption.
+Make sure the image is in a format supported by Pillow (like PNG or JPEG).
+
+
+You said:
+Build a tool that assesses the strength of a password based on criteria such as length, presence of uppercase and lowercase letters, numbers, and special characters.
+ChatGPT said:
+ChatGPT
+Here's a Python program that assesses the strength of a password based on various criteria, including length, presence of uppercase and lowercase letters, numbers, and special characters.
+
+Code
+python
+Copy code
+import re
+
+def assess_password_strength(password):
+    criteria = {
+        "length": len(password) >= 8,
+        "uppercase": re.search(r'[A-Z]', password) is not None,
+        "lowercase": re.search(r'[a-z]', password) is not None,
+        "number": re.search(r'[0-9]', password) is not None,
+        "special_char": re.search(r'[@$!%*?&]', password) is not None,
+    }
+
+    strength_score = sum(criteria.values())
+
+    if strength_score == 5:
+        strength = "Very Strong"
+    elif strength_score == 4:
+        strength = "Strong"
+    elif strength_score == 3:
+        strength = "Moderate"
+    elif strength_score == 2:
+        strength = "Weak"
+    else:
+        strength = "Very Weak"
+
+    return strength, criteria
+
+def main():
+    print("Password Strength Assessment Tool")
+    password = input("Enter your password: ")
+    
+    strength, criteria = assess_password_strength(password)
+
+    print(f"\nPassword Strength: {strength}")
+    print("Criteria Assessment:")
+    for criterion, met in criteria.items():
+        status = "Met" if met else "Not Met"
+        print(f" - {criterion.capitalize()}: {status}")
+
+if __name__ == "__main__":
+    main()
+How to Use the Program:
+Run the program.
+Input a password when prompted.
+The program will assess the password strength and display whether it is "Very Weak," "Weak," "Moderate," "Strong," or "Very Strong" based on the criteria.
+It will also show which criteria were met.
+Password Strength Criteria:
+Length: At least 8 characters.
+Uppercase letters: At least one uppercase letter.
+Lowercase letters: At least one lowercase letter.
+Numbers: At least one numeric digit.
+Special characters: At least one special character (e.g., @, $, !, %, *, ?, &).
+This simple tool can help users create stronger passwords by providing immediate feedback on their choices.

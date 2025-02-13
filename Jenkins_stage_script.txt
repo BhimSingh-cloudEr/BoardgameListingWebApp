@@ -1,0 +1,116 @@
+stages:          # List of stages for jobs, and their order of execution
+  - compile 
+  - sonarqube-analysis
+  - build
+  - deploy
+
+compile-job:       # This job runs in the build stage, which runs first.
+  stage: compile
+  script:
+    - echo "Compiling the code..."
+    - mvn clean compile
+
+sonarqube-job:   # This job runs in the test stage.
+  stage: sonarqube-analysis    # It only starts when the job in the build stage completes successfully.
+  script:
+    - echo "Running sonarqube analysis."
+    - sleep 60
+    - echo "Code coverage is 90%"
+
+build-job:   # This job also runs in the test stage.
+  stage: build    # It can run at the same time as unit-test-job (in parallel).
+  script:
+    - echo "Linting code... This will take about 10 seconds."
+    - echo "No lint issues found."
+
+deploy-job:      # This job runs in the deploy stage.
+  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
+  environment: production
+  script:
+    - echo "Deploying application..."
+    - echo "Application successfully deployed."
+
+
+
+# Stage 1: Build stage 284
+FROM maven:3.8.5-openjdk-17-slim AS build
+WORKDIR /app
+COPY . .
+RUN ./mvnw package -DskipTests
+
+# Stage 2: Runtime stage
+FROM openjdk:11-jre-slim
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
+EXPOSE 8080
+CMD ["java", "-jar", "app.jar"]
+
+
+
+# Stage 1: Build stage 
+FROM maven:3.8.5-openjdk-17-slim AS build
+WORKDIR /app
+COPY . .
+RUN ./mvnw package -DskipTests
+
+# Stage 2: Runtime stage
+FROM openjdk:17-jdk-slim AS runtime
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
+
+EXPOSE 8080
+CMD ["java", "-jar", "app.jar"]
+
+
+
+
+
+Stage 1: Build stage 284
+FROM maven:3.8.5-openjdk-17-slim AS build
+WORKDIR /app
+COPY
+RUN./mvnw package-DskipTests
+#Stage 2: Runtime stage
+FROM openjdk:11-jre-slim
+WORKDIR /app
+COPY --from-build /app/target/*.jar app.jar
+EXPOSE 8080
+CMD ["java", "-jar", "app.jar"]
+# Stage 1: Build stage
+FROM maven:3.8.5-openjdk-17-slim AS build 
+WORKDIR /app
+COPY
+RUN./mvnw package -DskipTests
+# Stage 2: Runtime stage
+FROM openjdk:17-jdk-slim AS runtime
+WORKDIR /app
+COPY --from=build/app/target/*.jar app.jar
+EXPOSE 8080
+CMD ["java", "-jar", "app.jar"]
+
+
+
+
+
+Stage 1: Build stage 284
+FROM maven:3.8.5-openjdk-17-slim AS build
+WORKDIR /app
+COPY
+RUN./mvnw package-DskipTests
+#Stage 2: Runtime stage
+FROM openjdk:11-jre-slim
+WORKDIR /app
+COPY --from-build /app/target/*.jar app.jar
+EXPOSE 8080
+CMD ["java", "-jar", "app.jar"]
+# Stage 1: Build stage
+FROM maven:3.8.5-openjdk-17-slim AS build 
+WORKDIR /app
+COPY
+RUN./mvnw package -DskipTests
+# Stage 2: Runtime stage
+FROM openjdk:17-jdk-slim AS runtime
+WORKDIR /app
+COPY --from=build/app/target/*.jar app.jar
+EXPOSE 8080
+CMD ["java", "-jar", "app.jar"]

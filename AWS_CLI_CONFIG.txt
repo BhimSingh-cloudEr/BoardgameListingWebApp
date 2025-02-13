@@ -1,0 +1,46 @@
+To install and configure the AWS CLI, follow these steps:
+
+Step 1: Install the AWS CLI
+On macOS (using Homebrew):
+Open Terminal.
+Run:
+bash
+Copy code
+brew install awscli
+On Linux:
+Open Terminal.
+Run:
+bash
+Copy code
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+On Windows:
+Download the AWS CLI MSI installer for Windows from AWS CLI Downloads.
+Run the installer and follow the prompts.
+To confirm installation, type:
+
+bash
+Copy code
+aws --version
+Step 2: Configure the AWS CLI
+Run the following command in your terminal:
+
+bash
+Copy code
+aws configure
+You’ll be prompted for four details:
+
+AWS Access Key ID: Enter your Access Key ID.
+AWS Secret Access Key: Enter your Secret Access Key.
+Default region name: Enter the default region for your AWS resources, e.g., us-west-2.
+Default output format: Choose the default format (json, text, or table). The default is json.
+After configuration, the credentials will be saved in ~/.aws/credentials, and your default region and output settings will be saved in ~/.aws/config.
+
+Step 3: Test the Configuration
+Run a simple command to verify:
+
+bash
+Copy code
+aws s3 ls
+This will list your S3 buckets if the configuration was successful.
