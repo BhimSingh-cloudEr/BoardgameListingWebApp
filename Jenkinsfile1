@@ -1,0 +1,20 @@
+# Use Docker container as a slave 
+# Docker container run inside a slave agent VM configured in the jenkins environment
+
+
+pipeline {
+    agent any
+    stages {
+        stage('Docker Build') {
+            steps {
+                script {
+                    withDockerContainer(image: 'maven:3.8.1-adoptopenjdk-11', toolName: 'docker') {
+                        sh "git --version"
+                        sh "mvn --version"
+                        sh "java -version"
+                    }
+                }
+            }
+        }
+    }
+}
