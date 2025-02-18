@@ -1,0 +1,141 @@
+
+<------------------ Dotnet Project
+
+GitHub URL - https://github.com/davidfowl/eStoreLite.git
+
+GitHub Account - https://github.com/davidfowl
+
+
+<----------------- History Of the Commands
+
+ubuntu@ip-172-31-3-163:~/eStoreLite/src/Frontend$ history
+    1  sudo apt-get update
+    2  dotnet
+    3  sudo apt install dotnet-host-8.0 --classic
+    4  pwd
+    5  ls
+    6  ls -la
+    7  dotnet
+    8  sudo apt install dotnet-host-8.0
+    9  ls
+   10  ls -lah
+   11  sudo apt install dotnet-host-8.0
+   12  pwd
+   13  git clone https://github.com/davidfowl/eStoreLite.git
+   14  cd eStoreLite/
+   15  ls
+   16  dotnet restore eStoreLite.sln
+   17  sudo apt install dotnet-host-8.0
+   18  dotnet restore eStoreLite.sln
+   19  dotnet --version
+   20  cd ..
+   21  cd /home/ubuntu/
+   22  ls
+   23  sudo apt update
+   24  sudo apt install -y dotnet-sdk-8.0
+   25  dotnet --version
+   26  dotnet restore eStoreLite.sln
+   27  cd eStoreLite/
+   28  dotnet restore eStoreLite.sln
+   29  dotnet build
+   30  dotnet run --project src/Frontend/
+   31  ls
+   32  cd src/
+   33  ls
+   35  cd Frontend/
+   36  ls
+   39  cd obj/Debug/
+   40  ls
+   41  cd ../..
+   43  history
+
+
+
+<<----------- Jenkins Configuration MeThod -------------->>
+
+sudo apt-get update
+sudo apt-get install jdk17
+
+>>>Prerequisites
+
+Minimum hardware requirements:
+
+256 MB of RAM
+
+1 GB of drive space (although 10 GB is a recommended minimum if running Jenkins as a Docker container)
+
+Recommended hardware configuration for a small team:
+
+4 GB+ of RAM
+
+50 GB+ of drive space
+
+Comprehensive hardware recommendations:
+
+Hardware: see the Hardware Recommendations page
+
+Software requirements:
+
+Java: see the Java Requirements page
+
+Web browser: see the Web Browser Compatibility page
+
+For Windows operating system: Windows Support Policy
+
+For Linux operating system: Linux Support Policy
+
+For servlet containers: Servlet Container Support Policy
+
+Debian/Ubuntu
+On Debian and Debian-based distributions like Ubuntu you can install Jenkins through apt.
+
+Long Term Support release
+A LTS (Long-Term Support) release is chosen every 12 weeks from the stream of regular releases as the stable release for that time period. It can be installed from the debian-stable apt repository.
+
+> sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
+  https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+> echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc]" \
+  https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null
+> sudo apt-get update
+> sudo apt-get install jenkins
+
+sudo systemctl enable jenkins
+sudo systemctl start jenkins
+sudo systemctl status jenkins
+
+Your identification has been saved in      >>     /root/.ssh/id_ed25519
+Your public key has been saved in      >>     /root/.ssh/id_ed25519.pub
+
+
+<<----------- To Configure WebHook With GitHub -------------------->>
+
+Download WebHook Plugin and Pipeline Dependency
+Create new job with name ---- WebHook
+Go to configuration section
+Select WebHook configuration with what ever you configure with that
+	- Post Contents Parameter 
+			>  ref
+			> $.ref (JSONPath)
+						
+	- For token go to your configured app and generate token from there
+			> Configure token in to the token section of the jenkins
+					> Down the token section there is the link to configure in gitHub
+							
+						<<----------- Token ---------->>
+													
+						ghp_SHklmc915NN5MTUQ1hxobq3RIS9tHe0adzs2 
+						Optional token. If it is specified then this job can only be triggered if that token is supplied when invoking http://JENKINS_URL/generic-webhook-trigger/invoke. It can be supplied as a: 
+						Query parameter/invoke?token=TOKEN_HERE 
+						A token header token: TOKEN_HERE 
+						A Authorization: Bearer header Authorization: Bearer TOKEN_HERE
+		
+		
+	- Optional Filter
+		>Expression
+				> refs/heads/branch_name  ( In my case I chosse Dev Branch )
+
+	- Text Section
+		> $ref
+
+
