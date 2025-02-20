@@ -1,0 +1,36 @@
+# TomCat Hosting 
+
+	java -version
+	sudo apt-get update
+	apt install openjdk-17-jre-headless
+	
+	sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
+	https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+	echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc]" \
+	https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+	/etc/apt/sources.list.d/jenkins.list > /dev/null
+	sudo apt-get update
+	sudo apt-get install jenkins
+
+	sudo systemctl enable jenkins 
+	sudo systemctl start jenkins 
+	sudo systemctl status jenkins 
+
+
+### root@ip-172-31-12-171:~# history
+      cd /opt/
+      sudo wget https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.65/bin/apache-tomcat-9.0.65.tar.gz
+      sudo tar -xvf apache-tomcat-9.0.65.tar.gz
+      ls
+      cd /opt/apache-tomcat-9.0.65/conf
+      ls
+      sudo vi tomcat-users.xml
+      sudo ln -s /opt/apache-tomcat-9.0.65/bin/startup.sh /usr/bin/startTomcat
+      sudo ln -s /opt/apache-tomcat-9.0.65/bin/shutdown.sh /usr/bin/stopTomcat
+     sudo vi /opt/apache-tomcat-9.0.65/webapps/manager/META-INF/context.xml
+     sudo vi /opt/apache-tomcat-9.0.65/webapps/host-manager/META-INF/context.xml
+     sudo stopTomcat
+     sudo startTomcat
+     ls
+     cd
+     

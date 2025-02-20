@@ -1,0 +1,51 @@
+<--------------- Pipeline Script Build with Parameters ---------------------->
+
+pipeline {
+		any agent
+		
+				# These tools are define globally and use in the whole sections of the code
+				# In tools section first word is tool type and second word is tool
+		
+		tools {
+					jdk 'jdk11'
+					maven 'maven3'
+		}
+		
+				# In Parameters section code executions are done when ever user provide the branch otherwise it will go defaultValue means main
+		
+		parameters {
+				strings (name: 'Git_Branch', defaultValue: 'main', description: 'git branch name')
+				}
+				
+				stages {
+					stage ('Git CheckOut') {
+						steps{
+								git branch: "$(params.Git_Branch)", credentialsId: 'git-creds', url: 'Git Repo URL'
+									}
+							}
+				}
+									
+				stages{
+					stage ('Compilation') {
+							steps {
+									sh "mvn compile"
+									}
+							}
+				}
+				
+				stages{
+					stage ('Test') {
+							steps {
+									sh "mvn test"
+									}
+							}
+				}
+				
+				stages{
+					stage ('Package') {
+							steps {
+									sh "mvn package"
+									}
+							}
+				}
+  }
